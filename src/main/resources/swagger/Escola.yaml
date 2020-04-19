@@ -1,0 +1,228 @@
+swagger: '2.0'
+info:
+  description: API que busca simular o controle de informações sobre uma escola.
+  version: '1.0'
+  title: Escola
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: professor
+    description: Professor
+paths:
+  /rest/api/escola/v1/professores:
+    get:
+      tags:
+        - professor
+      summary: listarProfessores
+      operationId: listarProfessores
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Professor'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+      deprecated: false
+    post:
+      tags:
+        - professor
+      summary: cadastrarProfessor
+      operationId: cadastrarProfessor
+      parameters:
+        - in: body
+          name: professorFormPost
+          description: professorFormPost
+          required: true
+          schema:
+            $ref: '#/definitions/ProfessorFormPost'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Professor'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+      deprecated: false
+  '/rest/api/escola/v1/professores/{id}':
+    get:
+      tags:
+        - professor
+      summary: consultarProfessor
+      operationId: consultarProfessor
+      parameters:
+        - name: id
+          in: path
+          description: Identificador do professor
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/DetalheProfessor'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+      deprecated: false
+    put:
+      tags:
+        - professor
+      summary: atualizarProfessor
+      operationId: atualizarProfessor
+      parameters:
+        - name: id
+          in: path
+          description: Identificador do professor
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: professorFormPut
+          description: professorFormPut
+          required: true
+          schema:
+            $ref: '#/definitions/ProfessorFormPut'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Professor'
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+      deprecated: false
+    delete:
+      tags:
+        - professor
+      summary: excluirProfessor
+      operationId: excluirProfessor
+      parameters:
+        - name: id
+          in: path
+          description: Identificador do professor
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+      deprecated: false
+definitions:
+  Disciplina:
+    type: object
+    properties:
+      nome:
+        type: string
+      turno:
+        type: string
+        enum:
+          - MATUTINO
+          - VESPERTINO
+          - NOTURNO
+          - INTEGRAL
+  DisciplinaArray:
+    type: array
+    items:
+      $ref: '#/definitions/Disciplina'
+    title: DisciplinaArray
+  DetalheProfessor:
+    type: object
+    properties:
+      nome:
+        type: string
+      cpf:
+        type: string
+      dataNascimento:
+        type: string
+        format: date
+      disciplinas:
+        $ref: '#/definitions/DisciplinaArray'
+    title: DetalheProfessor
+  Error:
+    type: object
+    properties:
+      httpCode:
+        type: integer
+        description: 'Código de status Http'
+      httpMessage:
+        type: string
+        description: 'Mensagem Http'
+      moreInformation:
+        type: string
+        description: 'Mais Informações'
+  Professor:
+    type: object
+    properties:
+      nome:
+        type: string
+      disciplinas:
+        $ref: '#/definitions/DisciplinaArray'
+    title: Professor
+  ProfessorFormPost:
+    type: object
+    properties:
+      nome:
+        type: string
+      cpf:
+        type: string
+      dataNascimento:
+        type: string
+        format: date
+      disciplinas:
+        $ref: '#/definitions/DisciplinaArray'
+    title: JogadorFormPost
+  ProfessorFormPut:
+    type: object
+    properties:
+      nome:
+        type: string
+      cpf:
+        type: string
+      dataNascimento:
+        type: string
+        format: date
+      disciplinas:
+        $ref: '#/definitions/DisciplinaArray'
