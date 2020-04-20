@@ -4,12 +4,23 @@ import br.com.rest.api.spring.msescola.models.Discipline;
 import br.com.rest.api.spring.msescola.models.Teacher;
 import io.swagger.model.DetalheProfessor;
 import io.swagger.model.Disciplina;
+import io.swagger.model.Professor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
+
+    @Mappings({
+            @Mapping(target="nome", source="teacher.name"),
+            @Mapping(target="disciplinas", source="teacher.disciplines")
+    })
+    Professor soccerPlayerToProfessor(Teacher teacher);
+
+    List<Professor> teachersToProfessores(List<Teacher> teachers);
 
     @Mappings({
             @Mapping(target="nome", source="teacher.name"),

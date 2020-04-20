@@ -5,12 +5,13 @@ import br.com.rest.api.spring.msescola.models.Teacher;
 import br.com.rest.api.spring.msescola.services.impl.TeacherServiceImpl;
 import io.swagger.api.RestApi;
 import io.swagger.model.DetalheProfessor;
+import io.swagger.model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/api/escola")
@@ -21,6 +22,16 @@ public class EscolaApiImpl implements RestApi {
 
     @Autowired
     private TeacherServiceImpl teacherServiceImpl;
+
+    @GetMapping(value = "/v1/professores")
+    public ResponseEntity<List<Professor>> listarProfessores() {
+
+        List<Teacher> teachers = teacherServiceImpl.listaDeJogadores();
+
+        List<Professor> professores = teacherMapper.teachersToProfessores(teachers);
+
+        return ResponseEntity.ok(professores);
+    }
 
     @GetMapping(value = "/v1/professores/{id}")
     public ResponseEntity<DetalheProfessor> consultarProfessor(@PathVariable String id) {
