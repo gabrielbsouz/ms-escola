@@ -5,6 +5,7 @@ import br.com.rest.api.spring.msescola.models.Teacher;
 import io.swagger.model.DetalheProfessor;
 import io.swagger.model.Disciplina;
 import io.swagger.model.Professor;
+import io.swagger.model.ProfessorFormPost;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -21,6 +22,22 @@ public interface TeacherMapper {
     Professor soccerPlayerToProfessor(Teacher teacher);
 
     List<Professor> teachersToProfessores(List<Teacher> teachers);
+
+    @Mappings({
+            @Mapping(target="nome", source="teacher.name"),
+            @Mapping(target="cpf", source="teacher.cpf"),
+            @Mapping(target="dataNascimento", source="teacher.birthDate"),
+            @Mapping(target="disciplinas", source="teacher.disciplines")
+    })
+    ProfessorFormPost teacherToProfessorFormPost(Teacher teacher);
+
+    @Mappings({
+            @Mapping(target="name", source="professorFormPost.nome"),
+            @Mapping(target="cpf", source="professorFormPost.cpf"),
+            @Mapping(target="birthDate", source="professorFormPost.dataNascimento"),
+            @Mapping(target="disciplines", source="professorFormPost.disciplinas")
+    })
+    Teacher detalheProfessorToTeacher(ProfessorFormPost professorFormPost);
 
     @Mappings({
             @Mapping(target="nome", source="teacher.name"),

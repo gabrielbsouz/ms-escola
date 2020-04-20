@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface TeacherService {
 
-    List<Teacher> listaDeJogadores();
+    List<Teacher> listaDeProfessores();
+
+    Teacher incluirProfessor(Teacher teacher);
 
     Teacher buscarProfessor(String id);
 }

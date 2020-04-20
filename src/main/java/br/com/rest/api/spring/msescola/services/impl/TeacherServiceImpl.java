@@ -17,9 +17,15 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherRepository teacherRepository;
 
     @Override
-    public List<Teacher> listaDeJogadores() {
+    public List<Teacher> listaDeProfessores() {
 
         return teacherRepository.findAll();
+    }
+
+    @Override
+    public Teacher incluirProfessor(Teacher teacher) {
+
+        return teacherRepository.save(teacher);
     }
 
     @Override

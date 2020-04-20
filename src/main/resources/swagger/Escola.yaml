@@ -19,9 +19,7 @@ paths:
         '200':
           description: OK
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Professor'
+            $ref: '#/definitions/ProfessorArray'
         '401':
           description: Unauthorized
           schema:
@@ -201,6 +199,10 @@ definitions:
       disciplinas:
         $ref: '#/definitions/DisciplinaArray'
     title: Professor
+  ProfessorArray:
+    type: array
+    items:
+      $ref: '#/definitions/Professor'
   ProfessorFormPost:
     type: object
     properties:
