@@ -13,6 +13,7 @@ public class Teacher {
     @Id
     private String id;
     private String name;
+    private String cpf;
     private LocalDate birthDate;
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Discipline> disciplines;
